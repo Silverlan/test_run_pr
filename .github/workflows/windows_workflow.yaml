@@ -18,14 +18,14 @@ jobs:
     - name: Run executable
       run: |
         cd pragma
-        ./pragma_server.exe
-        echo ::set-output name=exit_code::$LASTEXITCODE
+        pragma_server.exe
+        echo ::set-output name=exit_code::%errorlevel%
 
     - name: Check exit code
       run: |
         echo Exit code: ${{ steps.run_executable.outputs.exit_code }}
-        if [ "${{ steps.run_executable.outputs.exit_code }}" -eq 0 ]; then
+        if %errorlevel% equ 0 (
           echo "Success"
-        else
+        ) else (
           echo "Failure"
-        fi
+        )
