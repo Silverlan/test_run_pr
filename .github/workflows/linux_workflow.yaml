@@ -1,0 +1,19 @@
+steps:
+- name: Checkout repository
+  uses: actions/checkout@v3
+
+- name: Download file
+  run: |
+    mkdir -p pragma
+    curl -LJO https://github.com/Silverlan/pragma/releases/download/nightly/pragma.tar.gz
+    tar -xvf pragma.tar.gz -C pragma --strip-components=1
+
+- name: Run executable
+  run: |
+    cd pragma
+    ./pragma_server +exit
+    echo "exit_code=$(echo $?)" >> $GITHUB_ENV
+
+- name: Check exit code
+  run: |
+    echo Exit code: ${{ env.exit_code }}
