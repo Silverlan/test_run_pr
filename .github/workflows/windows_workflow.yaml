@@ -21,7 +21,8 @@ jobs:
       run: |
         cd pragma
         ./pragma_server.exe +exit
-        echo "exit_code=$(echo $?)" >> $GITHUB_OUTPUT
+        # echo "exit_code=$(echo $?)" >> $GITHUB_OUTPUT
+        exit 1
 
     - name: Check exit code
       shell: bash
