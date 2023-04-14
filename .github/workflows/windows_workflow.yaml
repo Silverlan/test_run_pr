@@ -20,8 +20,31 @@ jobs:
       shell: bash
       run: |
         cd pragma
-        ./pragma_server.exe
-        echo ::set-output name=exit_code::%errorlevel%
+        #./pragma_server.exe
+        #exit
+        #echo ::set-output name=exit_code::%errorlevel%
+        # Start pragma_server.exe in the background
+        ./pragma_server.exe &
+
+        # Store the process ID (PID) of the pragma_server.exe process
+        pragma_server_pid=$!
+
+        # Wait for a short period to allow pragma_server.exe to start up
+        sleep 5
+
+        # Send "exit" command to pragma_server.exe using a heredoc
+        ./pragma_server.exe << EOF
+        exit
+        EOF
+
+        # Wait for pragma_server.exe to exit
+        wait $pragma_server_pid
+
+        # Get the exit status of pragma_server.exe
+        pragma_server_exit_code=$?
+
+        # Print the exit status
+        echo "pragma_server.exe exit code: $pragma_server_exit_code"
 
     - name: Check exit code
       shell: bash
