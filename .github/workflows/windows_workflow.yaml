@@ -24,7 +24,7 @@ jobs:
     - name: Check exit code
       run: |
         echo Exit code: ${{ steps.run_executable.outputs.exit_code }}
-        if [ ${{ steps.run_executable.outputs.exit_code }} -eq 0 ]; then
+        if [ "${{ steps.run_executable.outputs.exit_code }}" -eq 0 ]; then
           echo "Success"
         else
           echo "Failure"
