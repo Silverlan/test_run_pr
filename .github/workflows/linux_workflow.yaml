@@ -14,6 +14,7 @@ jobs:
         mkdir -p pragma
         curl -LJO https://github.com/Silverlan/pragma/releases/download/nightly/pragma.tar.gz
         tar -xvf pragma.tar.gz -C pragma --strip-components=1
+        ls -lR pragma
 
     - name: Run executable
       run: |
