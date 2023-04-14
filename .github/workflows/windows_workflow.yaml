@@ -18,7 +18,7 @@ jobs:
     - name: Run executable
       run: |
         cd pragma
-        pragma_server.exe
+        ./pragma_server.exe
         echo ::set-output name=exit_code::%errorlevel%
 
     - name: Check exit code
